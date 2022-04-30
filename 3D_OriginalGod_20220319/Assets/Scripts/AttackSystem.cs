@@ -54,7 +54,13 @@ namespace Walter
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(1, 0, 0, 0.3f);
-            Gizmos.DrawCube(transform.position + v3AttackOffset, v3AttackSize);
+            // matrix 設定圖示座標、角度與尺寸
+            // 座標、角度與尺寸
+            // transform.TransformDirection(座標) 轉換區域座標與世界座標
+            Gizmos.matrix = Matrix4x4.TRS(
+                transform.position + transform.TransformDirection(v3AttackOffset),
+                transform.rotation, transform.localScale);
+            Gizmos.DrawCube(Vector3.zero, v3AttackSize);
         }
 
         private void Awake()
